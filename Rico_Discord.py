@@ -16,10 +16,12 @@ async def search(ctx, *,search):
     search_result = await open_search_tokped(search)
 
     message = '**Hasil pencarian :\n**'
+    for name, price in zip(range(11), search_result):
+        message = message + f'`{name} - {price}`\n'
 
-    for result in search_result:
-        message = message + f'`{result.text}`\n'
-
-    await ctx.send(message)
+    while message:
+        # Split the message into a chunk that's less than 2000 characters
+        chunk, message = message[:2000], message[2000:]
+        await ctx.send(chunk)
 
 bot.run(token)

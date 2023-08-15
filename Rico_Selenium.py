@@ -11,12 +11,19 @@ def sync_open_search_tokped(cari):
     search.send_keys(cari)
     search.send_keys(Keys.RETURN)
     time.sleep(10)
-    result= driver.find_elements(By.CLASS_NAME, 'prd_link-product-name')
-    for element in result:
-        product_name = element.text
-        print(product_name)
+    barang_elements = driver.find_elements(By.CLASS_NAME, 'prd_link-product-name')
+    harga_elements = driver.find_elements(By.CLASS_NAME, 'prd_link-product-price')
 
-    return result
+    barang = [x.text for x in barang_elements]
+    harga = [y.text for y in harga_elements]
+
+    for x in barang:
+        print(x)
+
+    for y in harga:
+        print(y)
+
+    return list(zip(barang, harga))
 
 #def sync_get_info_tokped(cari):
     #driver = webdriver.Chrome()
